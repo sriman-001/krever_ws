@@ -1,0 +1,1 @@
+/home/parallels/krever_ws/build/krever/ament_cmake_core/kreverConfig.cmake

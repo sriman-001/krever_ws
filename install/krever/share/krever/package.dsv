@@ -1,0 +1,8 @@
+source;share/krever/hook/cmake_prefix_path.ps1
+source;share/krever/hook/cmake_prefix_path.dsv
+source;share/krever/hook/cmake_prefix_path.sh
+source;share/krever/local_setup.bash
+source;share/krever/local_setup.dsv
+source;share/krever/local_setup.ps1
+source;share/krever/local_setup.sh
+source;share/krever/local_setup.zsh
