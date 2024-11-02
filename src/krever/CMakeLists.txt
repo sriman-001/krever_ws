@@ -14,6 +14,7 @@ find_package(sensor_msgs REQUIRED)
 find_package(tf2 REQUIRED)
 find_package(tf2_ros REQUIRED)
 find_package(ros_ign_gazebo REQUIRED)
+find_package(ros2_control REQUIRED)  # Added ros2_control
 
 # Install directories
 install(DIRECTORY

@@ -26,6 +26,9 @@
   <exec_depend>rviz2</exec_depend>
   <exec_depend>ignition-gazebo6</exec_depend>
 
+  <build_depend>ros2_control</build_depend>
+  <exec_depend>ros2_control</exec_depend>
+
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
 

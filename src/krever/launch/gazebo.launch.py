@@ -1,26 +1,23 @@
 import os
 from launch import LaunchDescription
-from launch.actions import IncludeLaunchDescription, ExecuteProcess, RegisterEventHandler
-from launch.event_handlers import OnProcessExit
+from launch.actions import IncludeLaunchDescription, SetEnvironmentVariable
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
+from launch.substitutions import PathJoinSubstitution
 from launch_ros.actions import Node
-from launch_ros.substitutions import FindPackageShare
 from ament_index_python.packages import get_package_share_directory
 
 def generate_launch_description():
-    # Get the package directory
-    pkg_share = get_package_share_directory('krever')
+    # Enable software rendering
+    software_rendering = SetEnvironmentVariable('LIBGL_ALWAYS_SOFTWARE', '1')
     
-    # Set paths to URDF and world file
+    pkg_share = get_package_share_directory('krever')
     urdf_file = os.path.join(pkg_share, 'urdf', 'krever.urdf')
     world_file = os.path.join(pkg_share, 'worlds', 'empty.world')
     
-    # Launch Ignition Gazebo
     gazebo = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([
             PathJoinSubstitution([
-                FindPackageShare('ros_ign_gazebo'),
+                get_package_share_directory('ros_ign_gazebo'),
                 'launch',
                 'ign_gazebo.launch.py'
             ])
@@ -28,7 +25,6 @@ def generate_launch_description():
         launch_arguments={'ign_args': world_file}.items()
     )
     
-    # Robot state publisher
     robot_state_publisher = Node(
         package='robot_state_publisher',
         executable='robot_state_publisher',
@@ -40,7 +36,6 @@ def generate_launch_description():
         }]
     )
 
-    # Spawn the robot
     spawn_robot = Node(
         package='ros_ign_gazebo',
         executable='create',
@@ -54,7 +49,6 @@ def generate_launch_description():
         output='screen'
     )
 
-    # Bridge to convert Ignition topics to ROS topics
     bridge = Node(
         package='ros_ign_bridge',
         executable='parameter_bridge',
@@ -67,6 +61,7 @@ def generate_launch_description():
     )
 
     return LaunchDescription([
+        software_rendering,
         gazebo,
         robot_state_publisher,
         spawn_robot,

@@ -112,11 +112,12 @@
         
     </link>
 
-    <joint name="base_left_wheel_joint" type="continuous">
-    <parent link="base_link"/>
+    <joint name="left_wheel_joint" type="continuous">
+        <parent link="base_link"/>
         <child link="left_wheel"/>
         <origin xyz="0 0.315 0.05" rpy="0 0 0"/>
         <axis xyz="0 1 0"/>
+        <limit effort="10.0" velocity="5.0"/>
     </joint>
 
 
@@ -144,25 +145,28 @@
         </inertial>
     </link>
 
-    <joint name="base_right_wheel_joint" type="continuous">
+    <joint name="right_wheel_joint" type="continuous">
         <parent link="base_link"/>
         <child link="right_wheel"/>
         <origin xyz="-0 -0.315 0.05" rpy="0 0 0"/>
         <axis xyz="0 1 0"/>
+        <limit effort="10.0" velocity="5.0"/>
+
     </joint>
+
 
 <!-- caster wheel1 -->
     <link name="caster_wheel1">
         <visual>
             <geometry>
-                <sphere radius="0.025"/>
+                <sphere radius="0.05"/>
             </geometry>
             <origin xyz="0 0 0" rpy="1.57 0 0"/>
             <material name="blue"/>
         </visual>
         <collision>
             <geometry>
-                <sphere radius="0.025"/>
+                <sphere radius="0.05"/>
             </geometry>
             <origin xyz="0 0 0" rpy="1.57 0 0"/>
             <material name="blue"/>
@@ -181,20 +185,32 @@
         <parent link="base_link"/>
         <child link="caster_wheel1"/>
         <origin xyz="0.25 0 0.0" rpy="0 0 0"/>
+        <gazebo>
+            <joint>
+                <surface>
+                    <friction>
+                        <ode>
+                            <mu>0.001</mu>            <!-- Coefficient of friction -->
+                            <mu2>0.001</mu2>          <!-- Coefficient of friction in the perpendicular direction -->
+                        </ode>
+                    </friction>
+                </surface>
+            </joint>
+        </gazebo>
     </joint>
 
 <!-- caster wheel2 -->
     <link name="caster_wheel2">
         <visual>
             <geometry>
-                <sphere radius="0.025"/>
+                <sphere radius="0.05"/>
             </geometry>
             <origin xyz="0 0 0" rpy="1.57 0 0"/>
             <material name="blue"/>
         </visual>
         <collision>
             <geometry>
-                <sphere radius="0.025"/>
+                <sphere radius="0.05"/>
             </geometry>
             <origin xyz="0 0 0" rpy="1.57 0 0"/>
             <material name="blue"/>
@@ -208,6 +224,19 @@
         <parent link="base_link"/>
         <child link="caster_wheel2"/>
         <origin xyz="-0.25 0 0.0" rpy="0 0 0"/>
+        <gazebo>
+            <joint>
+                <surface>
+                    <friction>
+                        <ode>
+                            <mu>0.001</mu>            <!-- Coefficient of friction -->
+                            <mu2>0.001</mu2>          <!-- Coefficient of friction in the perpendicular direction -->
+                        </ode>
+                    </friction>
+                </surface>
+            </joint>
+        </gazebo>
+
     </joint>
 
 

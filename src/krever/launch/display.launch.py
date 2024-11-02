@@ -1,4 +1,5 @@
 import os
+from launch.substitutions import Command
 from launch import LaunchDescription
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
@@ -31,10 +32,13 @@ def generate_launch_description():
 
     # Start the robot state publisher node
     robot_state_publisher_node = Node(
-        package='robot_state_publisher',
-        executable='robot_state_publisher',
-        parameters=[{'robot_description': open(default_urdf_model_path).read()}]
+    package='robot_state_publisher',
+    executable='robot_state_publisher',
+    name='robot_state_publisher',
+    output='screen',
+    parameters=[{'robot_description': Command(['xacro ', LaunchConfiguration('urdf_model')])}]
     )
+
 
     # Start the joint state publisher node
     joint_state_publisher_node = Node(
