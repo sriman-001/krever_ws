@@ -1,0 +1,32 @@
+diff_drive_controller:
+  ros__parameters:
+    use_sim_time: true  # Ensure that simulated time is used
+    left_wheel_names: ["left_wheel"]
+    right_wheel_names: ["right_wheel"]
+    wheel_separation: 0.63  # Set based on your robot's URDF
+    wheel_radius: 0.1      # Set based on your robot's URDF
+    publish_rate: 50       # Rate at which to publish the controller state
+    update_rate: 50        # Frequency to update controller state
+    open_loop: false       # Set to true if using estimated wheel velocities
+    velocity_rolling_window_size: 10
+    enable_odom_tf: true   # Enable publishing of odom -> base_link transform
+    odom_frame_id: "odom"
+    base_frame_id: "base_link"
+    cmd_vel_timeout: 0.25  # Time before a zero velocity command is sent
+    allow_multiple_cmd_vel_publishers: false
+    use_stamped_vel: false
+
+    # PID gains for the controllers
+    linear:
+      p: 1.0
+      i: 0.0
+      d: 0.0
+      max_velocity: 1.0
+      min_velocity: -1.0
+
+    angular:
+      p: 1.0
+      i: 0.0
+      d: 0.0
+      max_velocity: 1.0
+      min_velocity: -1.0
